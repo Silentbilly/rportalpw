@@ -11,7 +11,6 @@ test.describe.parallel('Login and logout flow @login', () => {
 
   test('Login and logout - positive scenario', async ({ page }) => {
     await loginPage.login('default', '1q2w3e')
-
     await expect(page).toHaveURL('http://localhost:8080/ui/#default_personal/dashboard')
   })
 })
