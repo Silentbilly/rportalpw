@@ -1,4 +1,4 @@
-import { Locator, Page } from '@playwright/test'
+import { Locator, Page } from '@playwright/test';
 import logger from '../utils/logger';
 
 export class LoginPage {

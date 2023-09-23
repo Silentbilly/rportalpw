@@ -10,5 +10,6 @@ module.exports = {
   rules: {
     // Add custom rules here, for example:
     '@typescript-eslint/indent': ['error', 2],
+    "semi": ["error", "always"]
   },
 };
