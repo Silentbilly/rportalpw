@@ -22,9 +22,9 @@ test.describe.parallel('Login and logout flow @login', () => {
 
     await loginPage.login(RP_USERNAME, RP_PASSWORD);
     await basePage.clickOnUserAvatar();
-    const userName = await userDropDownMenu.getUserName();
-    logger.info(`The user name in dropdown user menu - '${userName}'`);
+    const expectedUserName = await userDropDownMenu.getUserName();
+    logger.info(`The user name in dropdown user menu - '${expectedUserName}'`);
 
-    await expect(userName).toEqual(RP_USERNAME);
+    await expect(expectedUserName).toEqual(RP_USERNAME);
   });
 });

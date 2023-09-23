@@ -2,18 +2,14 @@ import { Locator, Page } from '@playwright/test';
 import logger from '../utils/logger';
 
 export class LoginPage {
-  readonly page: Page;
-  readonly passwordInput: Locator;
-  readonly submitButton: Locator;
-  readonly usernameInput: Locator;
-  readonly userAvatar: Locator;
+  private readonly passwordInput: Locator;
+  private readonly submitButton: Locator;
+  private readonly usernameInput: Locator;
 
   constructor(page: Page) {
-    this.page = page;
     this.usernameInput = page.getByPlaceholder('Login');
     this.passwordInput = page.getByPlaceholder('Password');
     this.submitButton = page.getByRole('button', { name: 'Login' });
-    this.userAvatar = page.getByRole('img', { name: 'avatar' });
   }
     
   async login(username: string, password: string) {
