@@ -4,7 +4,7 @@ import { BasePage } from '../../page-objects/BasePage';
 import { UserDropDownMenu } from '../../page-objects/components/UserDropdownMenu';
 import config from '../../resources/config.json';
 import logger from '../../utils/logger';
-import { RP_USERNAME, RP_PASSWORD } from '../../utils/config';
+import { RP_USERNAME, RP_PASSWORD } from '../../utils/envParameters';
 
 test.describe.parallel('Login and logout flow @login', () => {
   let basePage: BasePage;
