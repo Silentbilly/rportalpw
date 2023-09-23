@@ -4,3 +4,4 @@ tests-examples/
 /playwright-report/
 /playwright/.cache/
 data/
+logs/
