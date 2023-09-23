@@ -25,6 +25,6 @@ test.describe.parallel('Login and logout flow @login', () => {
     const userName = await userDropDownMenu.getUserName();
     logger.info(`The user name in dropdown user menu - '${userName}'`);
 
-    await expect(userName).toEqual(config.userName);
+    await expect(userName).toEqual(RP_USERNAME);
   });
 });
