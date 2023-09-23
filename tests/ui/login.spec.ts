@@ -4,6 +4,7 @@ import { BasePage } from '../../page-objects/BasePage';
 import { UserDropDownMenu } from '../../page-objects/components/UserDropdownMenu'
 import config from '../../resources/config.json';
 import logger from '../../utils/logger';
+import { RP_USERNAME, RP_PASSWORD } from '../../utils/config';
 
 test.describe.parallel('Login and logout flow @login', () => {
   let basePage: BasePage;
@@ -19,7 +20,7 @@ test.describe.parallel('Login and logout flow @login', () => {
     basePage = new BasePage(page);
     userDropDownMenu = new UserDropDownMenu(page);
 
-    await loginPage.login(config.userName, '1q2w3e');
+    await loginPage.login(RP_USERNAME, RP_PASSWORD);
     await basePage.clickOnUserAvatar();
     const userName = await userDropDownMenu.getUserName();
     logger.info(`The user name in dropdown user menu - '${userName}'`);

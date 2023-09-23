@@ -1,5 +1,6 @@
 import { Locator, Page } from '@playwright/test'
 import logger from '../utils/logger';
+import { BasePage } from '../page-objects/BasePage'
 
 export class LoginPage {
     readonly page: Page;
