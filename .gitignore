@@ -5,3 +5,4 @@ tests-examples/
 /playwright/.cache/
 data/
 logs/
+.env
