@@ -1,30 +1,25 @@
-import axios from 'axios';
-import config from '../resources/config.json';
+import { APIRequestContext, APIResponse } from '@playwright/test';
+import { RP_USERNAME, RP_PASSWORD, BASIC_AUTH_TOKEN } from '../utils/envParameters';
+import logger from './logger';
 
 export class HttpUtils {
-  static async getAuthToken(): Promise<string> {
-    //const AUTH_BODY = "grant_type=password&username=default&password=1q2w3e";
-    const URL = config.baseUrl; 
 
-    // Replace with your request payload and headers (e.g., client_id, client_secret)
-    const data = {
-      key: "grant_type=password&username=default&password=1q2w3e"
-    };
+  private static async executePost(request: APIRequestContext, address: string, data: object): Promise<APIResponse> {
+    logger.info(`Sending POST: ${address}`);
+    logger.info(`With parameters:\n ${JSON.stringify(data, null, 2)}`);
+    const response = await request.post(address, data);
+    logger.info(`Response status: ${response.status()} ${response.statusText()}`);
+    logger.info(`Response: ${JSON.stringify(await response.text(), null, 2)}`);
+    return response;
+  }
 
-    const headers = {
-      'Content-Type': 'application/x-www-form-urlencoded',
-      'Authorization': `Basic dWk6dWltYW4=`,
-    };
-
-    try {
-      const response = await axios.post(URL, data, { headers });
-      if (response.status === 200 && response.data && response.data.token) {
-        return response.data.token; // replace 'token' with the actual key that holds the token in the response, if it's different
-      } else {
-        throw new Error('Failed to retrieve auth token');
+  static async getAuthTokenRequest(request: APIRequestContext): Promise<APIResponse> {
+    return await HttpUtils.executePost(request, `/uat/sso/oauth/token`, {
+      data: `grant_type=password&username=${RP_USERNAME}&password=${RP_PASSWORD}`,
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'Authorization': `${BASIC_AUTH_TOKEN}` 
       }
-    } catch (error) {
-      throw error;
-    }
+    });
   }
 }

@@ -1,5 +1,4 @@
 import { defineConfig, devices } from '@playwright/test';
-import { BASIC_AUTH_TOKEN } from './src/utils/envParameters';
 
 /**
  * Read environment variables from file.
@@ -26,13 +25,13 @@ export default defineConfig({
   use: {
     /* Base URL to use in actions like `await page.goto('/')`. */
     baseURL: 'http://localhost:8080',
-    extraHTTPHeaders: {
-      // We set this header per GitHub guidelines.
-      // Add authorization token to all requests.
-      // Assuming personal access token available in the environment.
-      'Content-Type': 'application/x-www-form-urlencoded',
-      'Authorization': `${BASIC_AUTH_TOKEN}` 
-    },
+    // extraHTTPHeaders: {
+    //   // We set this header per GitHub guidelines.
+    //   // Add authorization token to all requests.
+    //   // Assuming personal access token available in the environment.
+    //   'Content-Type': 'application/x-www-form-urlencoded',
+    //   'Authorization': `${BASIC_AUTH_TOKEN}` 
+    // },
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
   },
