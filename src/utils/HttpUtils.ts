@@ -9,7 +9,7 @@ export class HttpUtils {
     logger.info(`With parameters:\n ${JSON.stringify(data, null, 2)}`);
     const response = await request.post(address, data);
     logger.info(`Response status: ${response.status()} ${response.statusText()}`);
-    logger.info(`Response: ${JSON.stringify(await response.text(), null, 2)}`);
+    logger.info(`Response: ${JSON.stringify(await response.text())}`);
     return response;
   }
 
