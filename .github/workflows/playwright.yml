@@ -11,11 +11,12 @@ jobs:
     timeout-minutes: 60
     runs-on: ubuntu-latest
     services:
-      docker:
+      docker-dind:
         image: docker:stable-dind
         env:
-          DOCKER_DRIVER: overlay
-        options: --privileged --host=unix:///var/run/docker.sock
+          DOCKER_DRIVER: overlay2
+          DOCKER_HOST: tcp://localhost:2375
+        options: "--privileged"
 
     steps:
     - uses: actions/checkout@v3
@@ -26,12 +27,12 @@ jobs:
 
     # Login to Docker
     - name: Docker Login
-      run: echo ${{ secrets.DOCKER_HUB_PASSWORD }} | docker login -u ${{ secrets.DOCKER_HUB_USERNAME }} --password-stdin
+      run: echo ${{ secrets.DOCKER_HUB_PASSWORD }} | docker -H localhost:2375 login -u ${{ secrets.DOCKER_HUB_USERNAME }} --password-stdin
 
     # Start services using Docker Compose
     - name: Start services
       run: |
-        docker-compose -f .\docker-compose.yml up -d
+        docker -H localhost:2375 compose -f ./docker-compose.yml up -d
 
     - uses: actions/setup-node@v3
       with:
@@ -49,7 +50,7 @@ jobs:
     # Stop services
     - name: Stop services
       run: |
-        docker-compose -f .\docker-compose.yml down
+        docker -H localhost:2375 compose -f ./docker-compose.yml down
 
     - uses: actions/upload-artifact@v3
       if: always()
