@@ -1,24 +1,56 @@
 name: Playwright Tests
+
 on:
   push:
     branches: [ main, master ]
   pull_request:
     branches: [ main, master ]
+
 jobs:
   test:
     timeout-minutes: 60
     runs-on: ubuntu-latest
+    services:
+      docker:
+        image: docker:stable-dind
+        env:
+          DOCKER_DRIVER: overlay
+        options: --privileged --host=unix:///var/run/docker.sock
+
     steps:
     - uses: actions/checkout@v3
+
+    # Set up Docker Buildx
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v1
+
+    # Login to Docker
+    - name: Docker Login
+      run: echo ${{ secrets.DOCKER_HUB_PASSWORD }} | docker login -u ${{ secrets.DOCKER_HUB_USERNAME }} --password-stdin
+
+    # Start services using Docker Compose
+    - name: Start services
+      run: |
+        docker-compose -f .\docker-compose.yml up -d
+
     - uses: actions/setup-node@v3
       with:
         node-version: 18
+
     - name: Install dependencies
       run: npm ci
+
     - name: Install Playwright Browsers
       run: npx playwright install --with-deps
+
     - name: Run Playwright tests
       run: npx playwright test
+
+    # Stop services
+    - name: Stop services
+      run: |
+        docker-compose -f .\docker-compose.yml down
+
     - uses: actions/upload-artifact@v3
       if: always()
       with:
