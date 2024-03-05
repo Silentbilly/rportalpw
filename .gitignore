@@ -6,3 +6,4 @@ tests-examples/
 data/
 logs/
 .env
+.nyc_output/
