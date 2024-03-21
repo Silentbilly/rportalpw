@@ -5,6 +5,5 @@ tests-examples/
 /playwright/.cache/
 data/
 logs/
-
+.env
 .nyc_output/
-.gitignore
