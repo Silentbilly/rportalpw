@@ -1,10 +1,10 @@
 import { test, expect } from '@playwright/test';
-import { LoginPage } from '../../page-objects/LoginPage';
-import { BasePage } from '../../page-objects/BasePage';
-import { UserDropDownMenu } from '../../page-objects/components/UserDropdownMenu';
-import config from '../../resources/config.json';
-import logger from '../../utils/logger';
-import { RP_USERNAME, RP_PASSWORD } from '../../utils/envParameters';
+import { LoginPage } from '../../business/page-objects/LoginPage';
+import { BasePage } from '../../business/page-objects/BasePage';
+import { UserDropDownMenu } from '../../business/page-objects/components/UserDropdownMenu';
+import config from '../../core/resources/config.json';
+import logger from '../../core/logger';
+import { RP_USERNAME, RP_PASSWORD } from '../../core/envParameters';
 
 test.describe.parallel('Login and logout', () => {
   let basePage: BasePage;

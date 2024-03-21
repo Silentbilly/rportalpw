@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import { HttpUtils } from '../../utils/HttpUtils';
+import { HttpUtils } from '../../core/utils/HttpUtils';
 
 
 test.describe.parallel('Getting access token', () => {
