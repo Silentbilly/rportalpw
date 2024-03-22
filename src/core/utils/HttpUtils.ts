@@ -1,5 +1,5 @@
 import { APIRequestContext, APIResponse } from '@playwright/test';
-import { RP_USERNAME, RP_PASSWORD, BASIC_AUTH_TOKEN } from '../envParameters';
+import { RP_USERNAME, RP_PASSWORD, BASIC_AUTH_TOKEN } from '../resources/envParameters';
 import logger from '../logger';
 
 export class HttpUtils {
