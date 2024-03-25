@@ -1,4 +1,7 @@
 import { defineConfig, devices } from '@playwright/test';
+import { PlaywrightTestConfig } from '@playwright/test';
+import { RP_API_KEY } from './src/core/resources/envParameters';
+
 
 /**
  * Read environment variables from file.
@@ -9,6 +12,23 @@ import { defineConfig, devices } from '@playwright/test';
 /**
  * See https://playwright.dev/docs/test-configuration.
  */
+const RPconfig = {
+  apiKey: `${RP_API_KEY}`,
+  endpoint: 'https://reportportal.epam.com/api/v1',
+  project: 'alexander_kononov1_personal',
+  launch: 'Dashboards regression',
+  attributes: [
+    {
+      key: 'attributeKey',
+      value: 'attrbiuteValue',
+    },
+    {
+      value: 'anotherAttrbiuteValue',
+    },
+  ],
+  description: 'Dashboards regression',
+};
+
 export default defineConfig({
   testDir: './src/tests',
   /* Run tests in files in parallel */
@@ -20,7 +40,7 @@ export default defineConfig({
   /* Opt out of parallel tests on CI. */
   workers: process.env.CI ? 1 : undefined,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
-  reporter: 'html',
+  reporter: [['@reportportal/agent-js-playwright', RPconfig]],
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     /* Base URL to use in actions like `await page.goto('/')`. */
