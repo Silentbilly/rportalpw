@@ -18,7 +18,7 @@ jobs:
       run: |
         echo RP_PASSWORD=${{ secrets.RP_PASSWORD }} >> $GITHUB_ENV
         echo BASIC_AUTH_TOKEN=${{ secrets.BASIC_AUTH_TOKEN }} >> $GITHUB_ENV
-        echo RP_API_KEY=${{ secrets.RP_API_KEY }}
+        echo RP_API_KEY=${{ secrets.RP_API_KEY }} >> $GITHUB_ENV
 
     - name: Docker Login
       run: echo ${{ secrets.DOCKER_HUB_PASSWORD }} | docker login -u ${{ secrets.DOCKER_HUB_USERNAME }} --password-stdin
