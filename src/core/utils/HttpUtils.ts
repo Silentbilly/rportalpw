@@ -1,8 +1,7 @@
 import { APIRequestContext, APIResponse } from '@playwright/test';
 import { RP_USERNAME, RP_PASSWORD, BASIC_AUTH_TOKEN } from '../resources/envParameters';
-import { LoggerFactory } from '../logger/LoggerFactory';
+import { logger } from '../../../playwright.config';
 
-const logger: Logger = LoggerFactory.getLogger(); 
 export class HttpUtils {
 
   private static async executePost(request: APIRequestContext, address: string, data: object): Promise<APIResponse> {
