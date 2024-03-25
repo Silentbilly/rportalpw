@@ -1,7 +1,8 @@
 import { defineConfig, devices } from '@playwright/test';
-import { PlaywrightTestConfig } from '@playwright/test';
 import { RP_API_KEY } from './src/core/resources/envParameters';
+import { LoggerFactory } from './src/core/logger/LoggerFactory';
 
+export const logger: Logger = LoggerFactory.getLogger();
 
 /**
  * Read environment variables from file.
