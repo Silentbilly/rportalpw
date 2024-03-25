@@ -1,5 +1,7 @@
 import { Locator, Page } from '@playwright/test';
-import logger from '../../core/logger';
+import { LoggerFactory } from '../../core/logger/LoggerFactory';
+
+const logger: Logger = LoggerFactory.getLogger(); 
 
 export class LoginPage {
   private readonly passwordInput: Locator;

@@ -3,8 +3,10 @@ import { LoginPage } from '../../business/page-objects/LoginPage';
 import { BasePage } from '../../business/page-objects/BasePage';
 import { UserDropDownMenu } from '../../business/page-objects/components/UserDropdownMenu';
 import config from '../../core/resources/config.json';
-import logger from '../../core/logger';
 import { RP_USERNAME, RP_PASSWORD } from '../../core/resources/envParameters';
+import { LoggerFactory } from '../../core/logger/LoggerFactory';
+
+const logger: Logger = LoggerFactory.getLogger(); 
 
 test.describe.parallel('Login and logout', () => {
   let basePage: BasePage;
