@@ -6,7 +6,6 @@ export class HttpUtils {
 
   private static async executePost(request: APIRequestContext, address: string, data: object): Promise<APIResponse> {
     logger.info(`Sending POST: ${address}`);
-    logger.info(`With parameters:\n${JSON.stringify(data, null, 2)}`);
 
     const response = await request.post(address, data);
 
