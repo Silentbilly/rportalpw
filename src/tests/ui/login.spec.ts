@@ -22,7 +22,7 @@ test.describe.parallel('Login and logout', () => {
 
   test('Login - positive scenario', async ({ page }) => {
     basePage = new BasePage(page);
-    
+
     isSuccessfullMessageAppeared = basePage.isLoginSuccessfullMessageAppeared();
     await basePage.clickOnUserAvatar();
     const actualUserName = await userDropDownMenu.getUserName();

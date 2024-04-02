@@ -19,7 +19,7 @@ export class HttpUtils {
       data: `grant_type=password&username=${RP_USERNAME}&password=${RP_PASSWORD}`,
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
-        'Authorization': `${BASIC_AUTH_TOKEN}` 
+        'Authorization': `${BASIC_AUTH_TOKEN}`
       }
     });
   }

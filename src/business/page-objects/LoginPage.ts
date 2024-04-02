@@ -11,7 +11,7 @@ export class LoginPage {
     this.passwordInput = page.getByPlaceholder('Password');
     this.submitButton = page.getByRole('button', { name: 'Login' });
   }
-    
+
   async login(username: string, password: string) : Promise<void> {
     await this.usernameInput.fill(username);
     await this.passwordInput.fill(password);
