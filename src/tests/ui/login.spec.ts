@@ -6,40 +6,39 @@ import config from '../../core/resources/config.json';
 import { RP_USERNAME, RP_PASSWORD } from '../../core/resources/envParameters';
 import { logger } from '../../../playwright.config';
 
-test.describe.parallel('Login and logout', () => {
-  let basePage: BasePage;
-  let loginPage: LoginPage;
-  let userDropDownMenu: UserDropDownMenu;
-  let isSuccessfullMessageAppeared: Promise<boolean>;
+test.describe.configure({ mode: 'serial' });
 
-  test.beforeEach(async ({ page }) => {
-    loginPage = new LoginPage(page);
-    userDropDownMenu = new UserDropDownMenu(page);
+let basePage: BasePage;
+let loginPage: LoginPage;
+let userDropDownMenu: UserDropDownMenu;
+let isSuccessfullMessageAppeared: Promise<boolean>;
 
-    await page.goto(config.baseUrl);
-    await loginPage.login(RP_USERNAME, RP_PASSWORD);
-  });
+test.beforeEach(async ({ page }) => {
+  loginPage = new LoginPage(page);
+  userDropDownMenu = new UserDropDownMenu(page);
 
-  test('Login - positive scenario', async ({ page }) => {
-    basePage = new BasePage(page);
+  await page.goto(config.baseUrl);
+  await loginPage.login(RP_USERNAME, RP_PASSWORD);
+});
 
-    isSuccessfullMessageAppeared = basePage.isLoginSuccessfullMessageAppeared();
-    await basePage.clickOnUserAvatar();
-    const actualUserName = await userDropDownMenu.getUserName();
-    logger.info(`The user name in dropdown user menu - '${actualUserName}'`);
+test('Login - positive scenario', async ({ page }) => {
+  basePage = new BasePage(page);
 
-    await expect(isSuccessfullMessageAppeared, 'The successfull login message should be appeared').toBeTruthy();
-    await expect(actualUserName, `User should be loooged in as '${RP_USERNAME}'`)
-      .toEqual(RP_USERNAME);
-  });
+  isSuccessfullMessageAppeared = basePage.isLoginSuccessfullMessageAppeared();
+  await basePage.clickOnUserAvatar();
+  const actualUserName = await userDropDownMenu.getUserName();
+  logger.info(`The user name in dropdown user menu - '${actualUserName}'`);
 
-  test('Logout', async({page}) => {
-    basePage = new BasePage(page);
+  await expect(isSuccessfullMessageAppeared, 'The successfull login message should be appeared').toBeTruthy();
+  await expect(actualUserName, `User should be loooged in as '${RP_USERNAME}'`)
+    .toEqual(RP_USERNAME);
+});
 
-    await basePage.clickOnUserAvatar();
-    await userDropDownMenu.clickOnLogout();
+test('Logout', async ({ page }) => {
+  basePage = new BasePage(page);
 
-    await expect(basePage.isLogoutSuccessfullMessageAppeared, 'The successfull logout message should be appeared').toBeTruthy();
-  }
-  );
+  await basePage.clickOnUserAvatar();
+  await userDropDownMenu.clickOnLogout();
+
+  await expect(basePage.isLogoutSuccessfullMessageAppeared, 'The successfull logout message should be appeared').toBeTruthy();
 });
