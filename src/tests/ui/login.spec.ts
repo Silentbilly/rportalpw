@@ -11,7 +11,6 @@ test.describe.configure({ mode: 'serial' });
 let basePage: BasePage;
 let loginPage: LoginPage;
 let userDropDownMenu: UserDropDownMenu;
-let isSuccessfullMessageAppeared: Promise<boolean>;
 
 test.beforeEach(async ({ page }) => {
   loginPage = new LoginPage(page);
@@ -24,12 +23,11 @@ test.beforeEach(async ({ page }) => {
 test('Login - positive scenario', async ({ page }) => {
   basePage = new BasePage(page);
 
-  isSuccessfullMessageAppeared = basePage.isVisible(basePage.successfullLoginMessage);
   await basePage.clickOn(basePage.userAvatar);
   const actualUserName = await userDropDownMenu.getUserName();
   logger.info(`The user name in dropdown user menu - '${actualUserName}'`);
 
-  await expect(isSuccessfullMessageAppeared, 'The successfull login message should be appeared').toBeTruthy();
+  await expect(basePage.successfullLoginMessage, 'The successfull login message should be appeared').toBeVisible();
   await expect(actualUserName, `User should be loooged in as '${RP_USERNAME}'`)
     .toEqual(RP_USERNAME);
 });
@@ -40,5 +38,5 @@ test('Logout', async ({ page }) => {
   await basePage.clickOn(basePage.userAvatar);
   await userDropDownMenu.clickOnLogout();
 
-  await expect(basePage.isVisible(basePage.successfullLogoutMessage), 'The successfull logout message should be appeared').toBeTruthy();
+  await expect(basePage.successfullLogoutMessage, 'The successfull logout message should be appeared').toBeVisible();
 });

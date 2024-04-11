@@ -46,5 +46,5 @@ test('User is able to remove a dashboard via UI', async () => {
     await dashboardItemPage.clickOn(dashboardItemPage.deleteButton);
     await deleteDashboardPopup.clickOn(deleteDashboardPopup.deleteButton);
 
-    await expect(dashboardsPage.isVisible(dashboardsPage.dashboardDeletedMessage), 'Dashboard deleted message is appeared').toBeTruthy();
+    await expect(dashboardsPage.dashboardDeletedMessage, 'Dashboard deleted message is appeared').toBeVisible();
 });

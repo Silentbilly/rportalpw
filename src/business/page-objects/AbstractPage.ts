@@ -1,6 +1,7 @@
 import { Locator, Page } from "playwright";
+import { logger } from "../../../playwright.config";
 
-export class AbstractPage {
+export abstract class AbstractPage {
     readonly page: Page;
 
     constructor(page: Page) {
@@ -8,10 +9,7 @@ export class AbstractPage {
     }
 
     async clickOn(locator: Locator): Promise<void> {
+        logger.info(`'${locator}' - click`);
         await locator.click();
-    }
-
-    async isVisible(locator: Locator): Promise<boolean> {
-        return await locator.isVisible();
     }
 }
