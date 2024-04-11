@@ -1,16 +1,12 @@
 import { Locator, Page } from "playwright";
-import { AllDashboardsPage } from "../AllDashboardsPage";
+import { BasePage } from "../BasePage";
 
+export class SideBar extends BasePage {
 
-export class SideBar {
-
-    private readonly dashboardsButton: Locator;
+    readonly dashboardsButton: Locator;
 
     constructor(page: Page) {
+        super(page);
         this.dashboardsButton = page.locator("//*[contains(text(),'Dashboards')]/ancestor::*[contains(@class,'sidebar-btn')]//a");
-    }
-
-    async clickOnDashboardsPage(): Promise<void> {
-        await this.dashboardsButton.click();
     }
 }

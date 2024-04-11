@@ -1,15 +1,13 @@
 import { Locator, Page } from "playwright";
+import { BasePage } from "../BasePage";
 
-export class DeleteDashboardPopup {
+export class DeleteDashboardPopup extends BasePage {
 
-    private readonly DELETE_DASHBOARD_POPUP = "//*[text()='Delete Dashboard']/ancestor::*[contains(@class,'modal-window')]";
-    private readonly deleteButton: Locator;
+    readonly DELETE_DASHBOARD_POPUP = "//*[text()='Delete Dashboard']/ancestor::*[contains(@class,'modal-window')]";
+    readonly deleteButton: Locator;
 
     constructor(page: Page) {
+        super(page);
         this.deleteButton = page.locator(this.DELETE_DASHBOARD_POPUP + "//button[text()='Delete']");
-    }
-
-    async clickOnDeleteButton() : Promise<void> {
-        await this.deleteButton.click();
     }
 }

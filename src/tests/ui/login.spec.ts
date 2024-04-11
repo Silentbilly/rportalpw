@@ -24,8 +24,8 @@ test.beforeEach(async ({ page }) => {
 test('Login - positive scenario', async ({ page }) => {
   basePage = new BasePage(page);
 
-  isSuccessfullMessageAppeared = basePage.isLoginSuccessfullMessageAppeared();
-  await basePage.clickOnUserAvatar();
+  isSuccessfullMessageAppeared = basePage.isVisible(basePage.successfullLoginMessage);
+  await basePage.clickOn(basePage.userAvatar);
   const actualUserName = await userDropDownMenu.getUserName();
   logger.info(`The user name in dropdown user menu - '${actualUserName}'`);
 
@@ -37,8 +37,8 @@ test('Login - positive scenario', async ({ page }) => {
 test('Logout', async ({ page }) => {
   basePage = new BasePage(page);
 
-  await basePage.clickOnUserAvatar();
+  await basePage.clickOn(basePage.userAvatar);
   await userDropDownMenu.clickOnLogout();
 
-  await expect(basePage.isLogoutSuccessfullMessageAppeared, 'The successfull logout message should be appeared').toBeTruthy();
+  await expect(basePage.isVisible(basePage.successfullLogoutMessage), 'The successfull logout message should be appeared').toBeTruthy();
 });

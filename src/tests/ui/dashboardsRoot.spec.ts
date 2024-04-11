@@ -33,8 +33,8 @@ test.beforeEach(async ({ page }) => {
 
     await page.goto(config.baseUrl);
     await loginPage.login(RP_USERNAME, RP_PASSWORD);
-    await sideBar.clickOnDashboardsPage();
-    await dashboardsPage.clickOnAddNewDashboardButton();
+    await sideBar.clickOn(sideBar.dashboardsButton);
+    await dashboardsPage.clickOn(dashboardsPage.addNewDashboardButton);
     await addNewDashboardPopup.addNewDashboard(dashboardName, dashboardDescription);
 });
 
@@ -43,8 +43,8 @@ test('User is able to create a dashboard via UI', async () => {
 });
 
 test('User is able to remove a dashboard via UI', async () => {
-    await dashboardItemPage.clickOnDeleteButton();
-    await deleteDashboardPopup.clickOnDeleteButton();
+    await dashboardItemPage.clickOn(dashboardItemPage.deleteButton);
+    await deleteDashboardPopup.clickOn(deleteDashboardPopup.deleteButton);
 
-    await expect(dashboardsPage.isDashboardDeletedMessageAppeared, 'Dashboard deleted message is appeared').toBeTruthy();
+    await expect(dashboardsPage.isVisible(dashboardsPage.dashboardDeletedMessage), 'Dashboard deleted message is appeared').toBeTruthy();
 });

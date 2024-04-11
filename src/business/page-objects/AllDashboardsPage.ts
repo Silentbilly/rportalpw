@@ -1,23 +1,16 @@
 import { Locator, Page } from '@playwright/test';
 import { PopupMessage } from '../enums/PopupMessage';
+import { AbstractPage } from './AbstractPage';
+import { BasePage } from './BasePage';
 
-export class AllDashboardsPage {
+export class AllDashboardsPage extends BasePage {
 
-    private readonly page: Page;
-    private readonly addNewDashboardButton: Locator;
-    private readonly dashboardDeletedMessage: Locator;
+    readonly addNewDashboardButton: Locator;
+    readonly dashboardDeletedMessage: Locator;
 
     constructor(page: Page) {
-        this.page = page;
+        super(page);
         this.addNewDashboardButton = page.locator("//*[text()='Add New Dashboard']//ancestor::button");
         this.dashboardDeletedMessage = page.getByText(PopupMessage.DASHBOARD_HAS_BEEN_DELETED);
     }
-
-    async clickOnAddNewDashboardButton(): Promise<void> {
-        await this.addNewDashboardButton.click();
-    }
-
-    async isDashboardDeletedMessageAppeared() : Promise<boolean> {
-        return this.dashboardDeletedMessage.isVisible();
-      }
 }
