@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "lint": "eslint 'src/**/*.{ts,tsx}' --quiet --fix",
+    "lint": "tslint 'src/tests/**/*.{ts,tsx}' --quiet --fix",
     "test": "nyc playwright test --config=playwright.config.ts"
   },
   "keywords": [],
@@ -30,6 +30,6 @@
     "ts-jest": "^29.1.1",
     "ts-node": "^10.9.1",
     "tslint": "^6.1.3",
-    "typescript": "^5.2.2"
+    "typescript": "^5.4.5"
   }
 }
