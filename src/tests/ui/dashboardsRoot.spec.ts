@@ -39,7 +39,6 @@ test.beforeEach(async ({ page }) => {
 });
 
 test('User is able to create a dashboard via UI', async () => {
-    // is it ok to make locators not private?
     await expect(dashboardItemPage.dashboardName, `Dashboard ${dashboardName} should be created`).toHaveText(dashboardName);
 });
 
