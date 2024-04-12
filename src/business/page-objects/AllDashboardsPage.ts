@@ -10,7 +10,7 @@ export class AllDashboardsPage extends BasePage {
 
     constructor(page: Page) {
         super(page);
-        this.addNewDashboardButton = page.locator("//*[text()='Add New Dashboard']//ancestor::button");
+        this.addNewDashboardButton = page.locator("(//*[text()='Add New Dashboard']//ancestor::button)[1]");
         this.dashboardDeletedMessage = page.getByText(PopupMessage.DASHBOARD_HAS_BEEN_DELETED);
     }
 }
