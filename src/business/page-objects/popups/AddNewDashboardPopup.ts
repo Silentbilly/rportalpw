@@ -1,6 +1,5 @@
 import { Locator, Page } from "playwright";
 
-
 export class AddNewDashboardPopup {
 
     private readonly ADD_NEW_DASHBOARD_POPUP = "//*[text()='Add New Dashboard']/ancestor::*[contains(@class,'modal-window')]";

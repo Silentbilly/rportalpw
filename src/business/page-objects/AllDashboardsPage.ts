@@ -1,6 +1,5 @@
 import { Locator, Page } from '@playwright/test';
 import { PopupMessage } from '../enums/PopupMessage';
-import { AbstractPage } from './AbstractPage';
 import { BasePage } from './BasePage';
 
 export class AllDashboardsPage extends BasePage {
