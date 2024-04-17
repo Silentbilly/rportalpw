@@ -1,4 +1,5 @@
 import * as winston from 'winston';
+import { Logger } from './Logger';
 
 export class WinstonLogger implements Logger {
   private winstonLogger: winston.Logger;

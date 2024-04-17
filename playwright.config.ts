@@ -1,6 +1,7 @@
 import { defineConfig, devices } from '@playwright/test';
 import { RP_API_KEY } from './src/core/resources/envParameters';
 import { LoggerFactory } from './src/core/logger/LoggerFactory';
+import { Logger } from './src/core/logger/Logger';
 
 export const logger: Logger = LoggerFactory.getLogger();
 
@@ -62,7 +63,7 @@ export default defineConfig({
   projects: [
     {
       name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
+      use: { ...devices['Desktop Chrome'] }
     },
 
     // {
