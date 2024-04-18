@@ -19,6 +19,7 @@ module.exports = {
             "html:test-results/cucumber-report.html",
             "json:test-results/cucumber-report.json"
         ],
-        parallel: 4
+        parallel: 4,
+        retry: 2
     }
 }

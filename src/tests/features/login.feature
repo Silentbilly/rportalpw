@@ -1,3 +1,4 @@
+@noAuth
 Feature: User Authentication tests
 
   Background:
@@ -18,7 +19,6 @@ Feature: User Authentication tests
     And Clicks on logout option
     Then The successfull logout message should appear
 
-  # Works with just "Scenario" as well. What is the point of using Outline?
   Scenario Outline: Login with wrong credentials
     When User enters invalid username "<username>" and password "<password>" and clicks submit button
     Then The bad credentials login message should not appear for "<username>" and ""
