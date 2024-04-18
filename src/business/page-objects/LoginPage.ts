@@ -19,6 +19,6 @@ export class LoginPage {
     await this.usernameInput.fill(username);
     await this.passwordInput.fill(password);
     await this.submitButton.click();
-    logger.info(`Logged in as '${username}'`);
+    logger.info(`Logging in as '${username}'`);
   }
 }

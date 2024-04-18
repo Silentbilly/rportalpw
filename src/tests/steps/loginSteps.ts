@@ -15,22 +15,23 @@ let basePage: BasePage;
 let userDropDownMenu: UserDropDownMenu;
 
 Given('User navigates to the application', async () => {
+    loginPage = new LoginPage(fixture.page);
+    basePage = new BasePage(fixture.page);
+    userDropDownMenu = new UserDropDownMenu(fixture.page);
     await fixture.page.goto(config.baseUrl);
 });
 
 When('User enters valid username and password and clicks submit button', async () => {
-    loginPage = new LoginPage(fixture.page);
+    logger.info('User enters valid username and password and clicks submit button');
     await loginPage.login(RP_USERNAME, RP_PASSWORD);
 });
 
 Then('The successfull login message should appear', async () => {
-    basePage = new BasePage(fixture.page);
+    logger.info('Getting successfull login message');
     await expect(basePage.successfullLoginMessage, 'The successfull login message should be appeared').toBeVisible();
 });
 
 When('Clicks on user dropdown menu', async () => {
-    basePage = new BasePage(fixture.page);
-    userDropDownMenu = new UserDropDownMenu(fixture.page);
     await basePage.clickOn(basePage.userAvatar);
     const actualUserName = await userDropDownMenu.getUserName();
     logger.info(`The user name in dropdown user menu - '${actualUserName}'`);
@@ -47,17 +48,16 @@ When('Clicks on logout option', async () => {
 });
 
 Then('The successfull logout message should appear', async () => {
-    basePage = new BasePage(fixture.page);
+    logger.info('Getting successfull logout message');
     await expect(basePage.successfullLogoutMessage, 'The successfull logout message should be appeared').toBeVisible();
 });
 
 When('User enters invalid username {string} and password {string} and clicks submit button', async (userName, password) => {
-    loginPage = new LoginPage(fixture.page);
     await loginPage.login(userName, password);
 });
 
 Then(/^The bad credentials login message should (not )?appear for "([^"]*)" and "([^"]*)"$/, async (notArg, userName: string, password: string) => {
-    loginPage = new LoginPage(fixture.page);
+    logger.info('Getting bad credentials message');
     if (notArg) {
         await expect(loginPage.badCredentialsLoginMessage, 'The bad credentials message should not appeare').not.toBeVisible();
     } else {
