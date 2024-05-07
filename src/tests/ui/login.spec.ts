@@ -21,11 +21,11 @@ test.beforeEach(async ({ page }) => {
   await loginPage.login(RP_USERNAME, RP_PASSWORD);
 });
 
-test('Login - positive scenario', async ({ page }) => {
+test('Login - positive scenario', async () => {
   await expect(basePage.successfullLoginMessage, 'The successfull login message should be appeared').toBeVisible();
 });
 
-test('Login - user is logged in', async ({ page }) => {
+test('Login - user is logged in', async () => {
   await basePage.clickOn(basePage.userAvatar);
   const actualUserName = await userDropDownMenu.getUserName();
   logger.info(`The user name in dropdown user menu - '${actualUserName}'`);
@@ -33,7 +33,7 @@ test('Login - user is logged in', async ({ page }) => {
   await expect(actualUserName, `User should be loooged in as '${RP_USERNAME}'`).toEqual(RP_USERNAME);
 });
 
-test('Logout', async ({ page }) => {
+test('Logout', async () => {
   await basePage.clickOn(basePage.userAvatar);
   await userDropDownMenu.clickOn(userDropDownMenu.logoutOption);
 

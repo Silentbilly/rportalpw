@@ -1,3 +1,4 @@
+import { Logger } from "./Logger";
 import { WinstonLogger } from "./WinstonLogger";
 
 let logger: Logger;
