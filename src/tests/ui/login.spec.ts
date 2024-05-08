@@ -6,7 +6,7 @@ import config from '../../core/resources/config.json';
 import { RP_USERNAME, RP_PASSWORD } from '../../core/resources/envParameters';
 import { logger } from '../../../playwright.config';
 
-test.describe.configure({ mode: 'serial' });
+test.describe.configure({ mode: 'parallel' });
 
 let basePage: BasePage;
 let loginPage: LoginPage;

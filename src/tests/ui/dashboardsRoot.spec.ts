@@ -8,8 +8,9 @@ import { StringUtils } from '../../core/utils/StringUtils';
 import { DashboardItemPage } from '../../business/page-objects/DashboardItemPage';
 import { AddNewDashboardPopup } from '../../business/page-objects/popups/AddNewDashboardPopup';
 import { DeleteDashboardPopup } from '../../business/page-objects/popups/DeleteDashboardPopup';
+import { HttpUtils } from '../../core/utils/HttpUtils';
 
-test.describe.configure({ mode: 'serial' });
+test.describe.configure({ mode: 'parallel' });
 
 let loginPage: LoginPage;
 let dashboardsPage: AllDashboardsPage;
@@ -19,6 +20,12 @@ let deleteDashboardPopup: DeleteDashboardPopup;
 let dashboardItemPage: DashboardItemPage;
 let dashboardName: string;
 let dashboardDescription: string;
+
+test.beforeAll(async ({ request }) => {
+    const response = await HttpUtils.getAuthTokenRequest(request);
+    const authToken = JSON.parse(await response.text()).access_token;
+    await HttpUtils.deleteAllDashboards(request, authToken);
+});
 
 test.beforeEach(async ({ page }) => {
     loginPage = new LoginPage(page);

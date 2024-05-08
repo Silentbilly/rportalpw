@@ -2,7 +2,8 @@
     "extends": ["tslint:recommended"],
     "rules": {
       "semicolon": [true, "always"],
-      "trailing-comma": [true]
+      "trailing-comma": [true],
+      "only-arrow-functions": false
     }
   }
   
