@@ -1,8 +1,8 @@
 import { test, expect, APIResponse } from '@playwright/test';
-import { HttpUtils } from '../../core/utils/HttpUtils';
-import { StringUtils } from '../../core/utils/StringUtils';
-import schema from './jsonSchemas/createDashboardResponse.json';
-import { JsonUtils } from '../../core/utils/jsonUtils';
+import { HttpUtils } from '../../../core/utils/HttpUtils';
+import { StringUtils } from '../../../core/utils/StringUtils';
+import schema from '../../../core/resources/jsonSchemas/createDashboardResponse.json';
+import { JsonUtils } from '../../../core/utils/jsonUtils';
 
 let authToken: string;
 let createDashboardResponse: APIResponse;

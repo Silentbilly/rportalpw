@@ -1,6 +1,6 @@
 import { test, expect, APIResponse } from '@playwright/test';
-import { HttpUtils } from '../../core/utils/HttpUtils';
-import { StringUtils } from '../../core/utils/StringUtils';
+import { HttpUtils } from '../../../core/utils/HttpUtils';
+import { StringUtils } from '../../../core/utils/StringUtils';
 
 let authToken: string;
 let createDashboardResponse: APIResponse;

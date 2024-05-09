@@ -1,0 +1,64 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "http://example.com/example.json",
+    "type": "object",
+    "default": {},
+    "title": "Root Schema",
+    "required": [
+        "description",
+        "owner",
+        "id",
+        "name",
+        "widgets"
+    ],
+    "properties": {
+        "description": {
+            "type": "string",
+            "default": "",
+            "title": "The description Schema",
+            "examples": [
+                " km9vQjRYPYOt"
+            ]
+        },
+        "owner": {
+            "type": "string",
+            "default": "",
+            "title": "The owner Schema",
+            "examples": [
+                "default"
+            ]
+        },
+        "id": {
+            "type": "integer",
+            "default": 0,
+            "title": "The id Schema",
+            "examples": [
+                564
+            ]
+        },
+        "name": {
+            "type": "string",
+            "default": "",
+            "title": "The name Schema",
+            "examples": [
+                "[AQA]  xLwaEFE08XfkABs8wOm9"
+            ]
+        },
+        "widgets": {
+            "type": "array",
+            "default": [],
+            "title": "The widgets Schema",
+            "items": {},
+            "examples": [
+                []
+            ]
+        }
+    },
+    "examples": [{
+        "description": " km9vQjRYPYOt",
+        "owner": "default",
+        "id": 564,
+        "name": "[AQA]  xLwaEFE08XfkABs8wOm9",
+        "widgets": []
+    }]
+}

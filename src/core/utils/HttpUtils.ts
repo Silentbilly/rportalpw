@@ -31,6 +31,21 @@ export class HttpUtils {
     return response;
   }
 
+  private static async executePut(request: APIRequestContext, address: string, authToken: string, payload: object): Promise<APIResponse> {
+    logger.info(`Sending PUT: ${address}`);
+    const response = await request.put(address, {
+      data: payload,
+      headers: {
+        'accept': '*/*',
+        'Content-Type': 'application/json',
+        'Authorization': `bearer ${authToken}`
+      }
+    });
+    logger.info(`Response status: ${response.status()} ${response.statusText()}`);
+    logger.info(`Response:\n${JSON.stringify(await response.json(), null, 2)}`);
+    return response;
+  }
+
   private static async executeDelete(request: APIRequestContext, address: string, authToken: string): Promise<APIResponse> {
     logger.info(`Sending DELETE: ${address}`);
     const response = await request.delete(address, {
@@ -92,5 +107,9 @@ export class HttpUtils {
 
   static async createDashboard(request: APIRequestContext, authToken: string, dashboardData: object): Promise<APIResponse> {
     return HttpUtils.executePost(request, `api/v1/${PROJECT_NAME}/dashboard`, authToken, dashboardData);
+  }
+
+  static async updateDashboard(request: APIRequestContext, authToken: string, dashboardData: object, dashboardId: number): Promise<APIResponse> {
+    return HttpUtils.executePut(request, `api/v1/${PROJECT_NAME}/dashboard/${dashboardId}`, authToken, dashboardData);
   }
 }
