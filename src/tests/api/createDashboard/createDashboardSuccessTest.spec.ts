@@ -3,6 +3,9 @@ import { HttpUtils } from '../../../core/utils/HttpUtils';
 import { StringUtils } from '../../../core/utils/StringUtils';
 import schema from '../../../core/resources/jsonSchemas/createDashboardResponse.json';
 import { JsonUtils } from '../../../core/utils/jsonUtils';
+import { HttpStatus } from '../../../business/enums/HttpStatus';
+import { HttpStatusCode } from 'axios';
+import { STATUS_CODES } from 'http';
 
 let authToken: string;
 let createDashboardResponse: APIResponse;
@@ -28,7 +31,7 @@ test.beforeEach(async ({ request }) => {
 
 
 test('Create dashboard. Check status 201.', async () => {
-    expect(createDashboardResponse.status()).toEqual(201);
+    expect(createDashboardResponse.status()).toEqual(HttpStatusCode.Created);
 });
 
 test('Create dashboard. Checking schema', async () => {

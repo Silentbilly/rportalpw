@@ -1,5 +1,6 @@
 import { test, expect, APIResponse } from '@playwright/test';
 import { HttpUtils } from '../../../core/utils/HttpUtils';
+import { HttpStatusCode } from 'axios';
 
 let authToken: string;
 let getDashboardsResponse: APIResponse;
@@ -18,7 +19,7 @@ test.beforeEach(async ({ request }) => {
 
 test('Get dashboard by wrong dashboard id. Status check', async ({ request }) => {
     const response = await HttpUtils.getDashboardById(request, authToken, dashboardId);
-    expect(response.status()).toEqual(404);
+    expect(response.status()).toEqual(HttpStatusCode.NotFound);
 });
 
 test('Get dashboard by wrong dashboard id. Error code check', async ({ request }) => {

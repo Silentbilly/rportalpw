@@ -1,6 +1,7 @@
 import { test, expect, APIResponse } from '@playwright/test';
 import { HttpUtils } from '../../../core/utils/HttpUtils';
 import { StringUtils } from '../../../core/utils/StringUtils';
+import { HttpStatusCode } from 'axios';
 
 let authToken: string;
 let createDashboardResponse: APIResponse;
@@ -28,7 +29,7 @@ test.beforeEach(async ({ request }) => {
 
 
 test('Create dashboard. Creating dupicate dashboard. Check status', async () => {
-    expect(createDuplicateResponse.status()).toEqual(409);
+    expect(createDuplicateResponse.status()).toEqual(HttpStatusCode.Conflict);
 });
 
 test('Create dashboard. Creating dupicate dashboard. Check error code', async () => {

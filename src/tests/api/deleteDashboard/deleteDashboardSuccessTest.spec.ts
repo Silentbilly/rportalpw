@@ -1,6 +1,7 @@
 import { test, expect, APIResponse } from '@playwright/test';
 import { HttpUtils } from '../../../core/utils/HttpUtils';
 import { StringUtils } from '../../../core/utils/StringUtils';
+import { HttpStatusCode } from 'axios';
 
 let authToken: string;
 let deleteDashboardResponse: APIResponse;
@@ -28,7 +29,7 @@ test.beforeEach(async ({ request }) => {
 });
 
 test('Delete dashboard by dashboard id. Status check', async () => {
-    expect(deleteDashboardResponse.status()).toEqual(200);
+    expect(deleteDashboardResponse.status()).toEqual(HttpStatusCode.Ok);
 });
 
 test('Delete dashboard by dashboard id. Error code check', async ({ request }) => {

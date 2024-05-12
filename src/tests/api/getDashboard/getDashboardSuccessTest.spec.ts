@@ -3,6 +3,7 @@ import { HttpUtils } from '../../../core/utils/HttpUtils';
 import { StringUtils } from '../../../core/utils/StringUtils';
 import { JsonUtils } from '../../../core/utils/jsonUtils';
 import schema from '../../../core/resources/jsonSchemas/getDashboardById.json';
+import { HttpStatusCode } from 'axios';
 
 let authToken: string;
 let dashboardId: number;
@@ -29,7 +30,7 @@ test.beforeEach(async ({ request }) => {
 });
 
 test('Get dashboard by dashboard id. Status check', async ({ request }) => {
-    expect(getDashboardsResponse.status()).toEqual(200);
+    expect(getDashboardsResponse.status()).toEqual(HttpStatusCode.Ok);
 });
 
 test('Get dashboard by dashboard id. Schema validation', async ({ request }) => {

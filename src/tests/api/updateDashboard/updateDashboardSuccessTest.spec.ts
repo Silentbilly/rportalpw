@@ -1,6 +1,7 @@
 import { test, expect, APIResponse } from '@playwright/test';
 import { HttpUtils } from '../../../core/utils/HttpUtils';
 import { StringUtils } from '../../../core/utils/StringUtils';
+import { HttpStatusCode } from 'axios';
 
 let authToken: string;
 let createDashboardResponse: APIResponse;
@@ -35,7 +36,7 @@ test.beforeEach(async ({ request }) => {
 });
 
 test('Update dashboard. Check status', async () => {
-    expect(updateDashboardResponse.status()).toEqual(200);
+    expect(updateDashboardResponse.status()).toEqual(HttpStatusCode.Ok);
 });
 
 test('Update dashboard. Check message', async () => {

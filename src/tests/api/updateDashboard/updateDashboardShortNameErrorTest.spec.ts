@@ -1,6 +1,8 @@
 import { test, expect, APIResponse } from '@playwright/test';
 import { HttpUtils } from '../../../core/utils/HttpUtils';
 import { StringUtils } from '../../../core/utils/StringUtils';
+import { HttpStatus } from '../../../business/enums/HttpStatus';
+import { HttpStatusCode } from 'axios';
 
 let authToken: string;
 let createDashboardResponse: APIResponse;
@@ -34,8 +36,8 @@ test.beforeEach(async ({ request }) => {
     updateDashboardResponse = await HttpUtils.updateDashboard(request, authToken, newDashboardData, dashboardId);
 });
 
-test('Update dashboard with showrt. Check status', async () => {
-    expect(updateDashboardResponse.status()).toEqual(400);
+test('Update dashboard with short name. Check status', async () => {
+    expect(updateDashboardResponse.status()).toEqual(HttpStatusCode.BadRequest);
 });
 
 test('Update dashboard with short name. Check error code', async () => {
