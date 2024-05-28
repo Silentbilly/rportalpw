@@ -6,6 +6,6 @@ export class AbstractPage {
             message: `Clicking on ${selector}`,
         });
 
-        cy.get(selector).click();
+        cy.xpath(selector).click({force:true});
     }
 }

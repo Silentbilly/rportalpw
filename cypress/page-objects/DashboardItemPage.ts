@@ -6,8 +6,8 @@ export class DashboardItemPage extends AbstractPage {
     readonly dashboardName: Locator;
     readonly deleteButton: Locator;
 
-    constructor(page: Page) {
-        super(page);
+    constructor() {
+        super();
         this.dashboardName = page.locator("//a[text()='All Dashboards']/parent::*/following-sibling::*/span");
         this.deleteButton = page.locator("//*[text()='Delete']/ancestor::button");
     }

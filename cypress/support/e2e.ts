@@ -14,7 +14,8 @@
 // ***********************************************************
 
 // Import commands.js using ES2015 syntax:
-import './commands'
-
+import './commands';
+// tslint:disable-next-line:no-var-requires
+import 'cypress-xpath';
 // Alternatively you can use CommonJS syntax:
 // require('./commands')

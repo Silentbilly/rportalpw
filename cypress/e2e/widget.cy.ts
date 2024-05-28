@@ -114,6 +114,7 @@ describe('template spec', () => {
   });
 
   it('Widget - positive scenario', () => {
-    basePage.getUserAvatar().should('be.visible').and('exist');
+    basePage.
+    getUserAvatar().should('be.visible').and('exist');
   });
 });

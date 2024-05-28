@@ -8,20 +8,20 @@
 
     constructor() {
       super();
-      this.userAvatar = '[alt="avatar"]';
-      this.successfulLoginMessage = 'text=PopupMessage.SIGNED_IN_SUCCESSFULLY';
-      this.successfulLogoutMessage = 'text=PopupMessage.YOU_HAVE_BEEN_LOGGED_OUT';
+      this.userAvatar = "(//*[@alt='avatar'])[1]";
+      this.successfulLoginMessage = `//*[contains(text(),'${PopupMessage.SIGNED_IN_SUCCESSFULLY}')]`;
+      this.successfulLogoutMessage = `//*[contains(text(),'${PopupMessage.YOU_HAVE_BEEN_LOGGED_OUT}')]`;
     }
 
     getUserAvatar() {
-      return cy.get(this.userAvatar);
+      return cy.xpath(this.userAvatar);
     }
 
     getSuccessfulLoginMessage() {
-      return cy.contains(PopupMessage.SIGNED_IN_SUCCESSFULLY);
+      return cy.xpath(this.successfulLoginMessage);
     }
 
     getSuccessfulLogoutMessage() {
-      return cy.contains(PopupMessage.YOU_HAVE_BEEN_LOGGED_OUT);
+      return cy.xpath(this.successfulLogoutMessage);
     }
   }

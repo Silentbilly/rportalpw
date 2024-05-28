@@ -11,6 +11,6 @@ export class UserDropDownMenu extends BasePage {
   }
 
   getUserName(): Cypress.Chainable<string> {
-    return cy.get(this.userNameInput).invoke('text').then(text => text.toLowerCase());
+    return cy.xpath(this.userNameInput).invoke('text').then(text => text.toLowerCase());
   }
 }

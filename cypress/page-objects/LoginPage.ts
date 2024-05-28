@@ -10,7 +10,7 @@ export class LoginPage {
     this.usernameInput = 'input[placeholder="Login"]';
     this.passwordInput = 'input[placeholder="Password"]';
     this.submitButton = 'button[type="submit"]';
-    this.badCredentialsLoginMessage = PopupMessage.BAD_CREDENTIALS; // Assuming PopupMessage is defined elsewhere
+    this.badCredentialsLoginMessage = PopupMessage.BAD_CREDENTIALS;
   }
 
   login(username: string, password: string): void {
