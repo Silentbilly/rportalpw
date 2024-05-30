@@ -1,18 +1,38 @@
-import { Locator, Page } from '@playwright/test';
-import { AbstractPage } from './AbstractPage';
+export class DashboardItemPage {
 
-export class DashboardItemPage extends AbstractPage {
-
-    readonly dashboardName: Locator;
-    readonly deleteButton: Locator;
-
-    constructor() {
-        super();
-        this.dashboardName = page.locator("//a[text()='All Dashboards']/parent::*/following-sibling::*/span");
-        this.deleteButton = page.locator("//*[text()='Delete']/ancestor::button");
+    get dashboardName() {
+        return cy.xpath("//a[text()='All Dashboards']/parent::*/following-sibling::*/span");
     }
 
-    async getDashboardName(): Promise<string> {
-        return await this.dashboardName.innerText();
+    get deleteButton() {
+        return cy.xpath("//*[text()='Delete']/ancestor::button");
+    }
+
+    get addNewWidgetButton() {
+        return cy.xpath("(//button[.//*[contains(text(),'Add new widget')]])[1]");
+    }
+
+    getDashboardName(): string {
+        return this.dashboardName.invoke('text');
+    }
+
+    resizeWidget(widgetName: string): void {
+        const widget = `//div[contains(text(), '${widgetName}')]/ancestor::div[contains(@class,'lazyload-wrapper')]`;
+        const handleSelector = widget + "/following-sibling::*[contains(@class, 'resizable-handle')]";
+        const resizableHandle = cy.xpath(handleSelector).trigger('mousedown', { which: 1 });
+        resizableHandle.trigger('mousemove', { clientY: 300 });
+        resizableHandle.trigger('mouseup');
+    }
+
+    getWidgetHeight(widgetName: string) {
+        const widget = `//div[contains(text(), '${widgetName}')]/ancestor::div[contains(@class,'lazyload-wrapper')]`;
+        return cy.xpath(widget)
+            .invoke('outerHeight');
+    }
+
+    scrollToWidget(widgetName: string) {
+        const widget = `//div[contains(text(), '${widgetName}')]/ancestor::div[contains(@class,'lazyload-wrapper')]`;
+        return cy.xpath(widget)
+            .scrollIntoView();
     }
 }

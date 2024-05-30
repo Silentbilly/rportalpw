@@ -1,15 +1,10 @@
-import { Locator, Page } from '@playwright/test';
-import { PopupMessage } from '../../src/business/enums/PopupMessage';
 import { BasePage } from './BasePage';
 
 export class AllDashboardsPage extends BasePage {
 
-    readonly addNewDashboardButton: Locator;
-    readonly dashboardDeletedMessage: Locator;
+    get addNewDashboardButton() { return cy.xpath("(//*[text()='Add New Dashboard']//ancestor::button)[1]"); }
 
-    constructor() {
-        super();
-        this.addNewDashboardButton = page.locator("(//*[text()='Add New Dashboard']//ancestor::button)[1]");
-        this.dashboardDeletedMessage = page.getByText(PopupMessage.DASHBOARD_HAS_BEEN_DELETED);
+    clickOnDashboardItem(itemName: string) {
+        cy.xpath(`//*[contains(@class,'grid')]/div//a[text()='${itemName}']`).click();
     }
 }

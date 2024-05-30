@@ -1,6 +1,7 @@
 import { BasePage } from "../page-objects/BasePage";
 import { LoginPage } from "../page-objects/LoginPage";
 import { UserDropDownMenu } from "../page-objects/components/UserDropdownMenu";
+import { RP_USERNAME, RP_PASSWORD } from '../support/envParameters';
 
 describe('template spec', () => {
   let basePage: BasePage;
@@ -8,30 +9,28 @@ describe('template spec', () => {
   let userDropDownMenu: UserDropDownMenu;
 
   beforeEach(() => {
-    const username = 'default';
-    const password = '1q2w3e';
+
     loginPage = new LoginPage();
     userDropDownMenu = new UserDropDownMenu();
     basePage = new BasePage();
 
-    cy.visit('http://localhost:8080');
-    loginPage.login(username, password);
+    cy.visit(Cypress.config().baseUrl);
+    loginPage.login(RP_USERNAME, RP_PASSWORD);
   });
 
   it('Login - positive scenario', () => {
-    basePage.getUserAvatar().should('be.visible').and('exist');
+    basePage.getUserAvatar.should('be.visible').and('exist');
   });
   it('Login - user is logged in', () => {
-    basePage.clickOn(basePage.userAvatar);
-    const actualUserName = userDropDownMenu.getUserName();
+    basePage.getUserAvatar.click({force:true});
 
-    actualUserName.should('equal', Cypress.env('rp_username'));
+    userDropDownMenu.userNameInput.should('have.text', RP_USERNAME);
   });
 
   it('Logout', async () => {
-    basePage.clickOn(basePage.userAvatar);
-    userDropDownMenu.clickOn(userDropDownMenu.logoutOption);
+    basePage.getUserAvatar.click({force:true});
+    userDropDownMenu.logoutOption.click();
 
-    basePage.getSuccessfulLogoutMessage().should('be.visible');
+    basePage.getSuccessfulLogoutMessage.should('be.visible');
   });
 });

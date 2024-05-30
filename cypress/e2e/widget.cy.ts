@@ -1,120 +1,69 @@
-import { BasePage } from "../page-objects/BasePage";
 import { LoginPage } from "../page-objects/LoginPage";
-import config from '../../src/core/resources/config.json';
-import { UserDropDownMenu } from "../page-objects/components/UserDropdownMenu";
-import { StringUtils } from "../../src/core/utils/StringUtils";
+import { AllDashboardsPage } from "../page-objects/AllDashboardsPage";
+import { DashboardItemPage } from "../page-objects/DashboardItemPage";
+import { AddNewDashboardPopup } from "../page-objects/popups/AddNewDashboardPopup";
+import { AddNewWidgetPopup } from "../page-objects/popups/AddNewWidgetPopup";
+import { SideBar } from "../page-objects/components/SideBar";
+import { RP_PASSWORD, RP_USERNAME } from "../support/envParameters";
+import { StringUtils } from '../../src/core/utils/StringUtils';
 
-describe('template spec', () => {
-  let basePage: BasePage;
+
+describe('Dashboard widgets tests', () => {
   let loginPage: LoginPage;
-  let userDropDownMenu: UserDropDownMenu;
-  let authToken: string;
+  let dashboardsPage: AllDashboardsPage;
+  let sideBar: SideBar;
+  let addNewDashboardPopup: AddNewDashboardPopup;
+  let addNewWidgetPopup: AddNewWidgetPopup;
+  let dashboardItemPage: DashboardItemPage;
+  let dashboardName: string;
+  let dashboardDescription: string;
+
+  dashboardName = StringUtils.getRandomName(20);
+  dashboardDescription = StringUtils.getRandomString(12);
 
   beforeEach(() => {
-    const username = Cypress.env('RP_USERNAME');
-    const password = Cypress.env('RP_PASSWORD');
-    const basicAuthToken = Cypress.env('BASIC_AUTH_TOKEN');
-    const filterName = StringUtils.getRandomString(6);
+    loginPage = new LoginPage();
+    dashboardsPage = new AllDashboardsPage();
+    sideBar = new SideBar();
+    addNewDashboardPopup = new AddNewDashboardPopup();
+    addNewWidgetPopup = new AddNewWidgetPopup();
+    dashboardItemPage = new DashboardItemPage();
 
-    cy.request({
-      method: 'POST',
-      url: '/uat/sso/oauth/token',
-      body: `grant_type=password&username=${username}&password=${password}`,
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-        'Authorization': `${basicAuthToken}`
-      },
-      form: true
-    }).then((response) => {
-      authToken = response.body.access_token;
-      cy.log('Auth Token:', authToken);
+    dashboardName = StringUtils.getRandomName(20);
+    dashboardDescription = StringUtils.getRandomString(12);
 
-      cy.request({
-        method: 'POST',
-        url: '/api/v1/rp_dashboards/widget/preview',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${authToken}`
-        },
-        body: {
-          "widgetType":"statisticTrend",
-          "contentParameters":{
-            "contentFields":[
-              "statistics$executions$total",
-              "statistics$executions$passed",
-              "statistics$executions$failed",
-              "statistics$executions$skipped",
-              "statistics$defects$product_bug$pb001",
-              "statistics$defects$automation_bug$ab001",
-              "statistics$defects$system_issue$si001",
-              "statistics$defects$no_defect$nd001",
-              "statistics$defects$to_investigate$ti001"
-            ],
-            "itemsCount":"50",
-            "widgetOptions":{
-              "zoom":false,
-              "timeline":"launch",
-              "viewMode":"area-spline"
-            }
-          },
-          "filters":[{"value":"16","name":"DEMO_FILTER"}],
-          "filterIds":["16"]
-        },
-      }).then((response) => {
-      cy.log('Auth Token:', authToken);
-
-      cy.request({
-        method: 'POST',
-        url: '/api/v1/rp_dashboards/widget/',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${authToken}`
-        },
-        body: {
-          "widgetType": "statisticTrend",
-          "contentParameters": {
-            "contentFields": [
-              "statistics$executions$total",
-              "statistics$executions$passed",
-              "statistics$executions$failed",
-              "statistics$executions$skipped",
-              "statistics$defects$product_bug$pb001",
-              "statistics$defects$automation_bug$ab001",
-              "statistics$defects$system_issue$si001",
-              "statistics$defects$no_defect$nd001",
-              "statistics$defects$to_investigate$ti001"
-            ],
-            "itemsCount": "50",
-            "widgetOptions": {
-              "zoom": false,
-              "timeline": "launch",
-              "viewMode": "area-spline"
-            }
-          },
-          "filters": [
-            {
-              "value": "16",
-              "name": "DEMO_FILTER"
-            }
-          ],
-          "name": filterName,
-          "description": "",
-          "filterIds": ["16"]
-        },
-      }).then((widgetResponse) => {
-          loginPage = new LoginPage();
-          userDropDownMenu = new UserDropDownMenu();
-          basePage = new BasePage();
-
-          cy.visit(config.baseUrl);
-          loginPage.login(username, password);
-        });
-      });
-    });
+    cy.visit(Cypress.config().baseUrl);
+    loginPage.login(RP_USERNAME, RP_PASSWORD);
+    sideBar.dashboardsButton.click();
+    dashboardsPage.addNewDashboardButton.click();
+    addNewDashboardPopup.addNewDashboard(dashboardName, dashboardDescription);
   });
 
-  it('Widget - positive scenario', () => {
-    basePage.
-    getUserAvatar().should('be.visible').and('exist');
+
+  it('User is able to create a dashboard via UI', () => {
+    dashboardItemPage.dashboardName.should('have.text', dashboardName);
+  });
+
+  it('User is able to resize widget to minimal height', () => {
+    const name = StringUtils.getRandomName(20);
+    const expectedMinHeight = 282;
+    sideBar.dashboardsButton.click();
+    dashboardsPage.clickOnDashboardItem(dashboardName);
+    addNewWidgetPopup.addNewWidget(name);
+    addNewWidgetPopup.addNewWidget(StringUtils.getRandomName(20));
+    dashboardItemPage.resizeWidget(name);
+
+    dashboardItemPage.getWidgetHeight(name).should('be.equal', expectedMinHeight);
+  });
+
+  it('User is able to scroll to widget if there are many widgets on the page', () => {
+    const name = StringUtils.getRandomName(20);
+    sideBar.dashboardsButton.click();
+    dashboardsPage.clickOnDashboardItem(dashboardName);
+    addNewWidgetPopup.addNewWidget(name);
+    addNewWidgetPopup.addNewWidget(StringUtils.getRandomName(20));
+    addNewWidgetPopup.addNewWidget(StringUtils.getRandomName(20));
+
+    dashboardItemPage.scrollToWidget(name).should('be.visible');
   });
 });
