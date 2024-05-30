@@ -3,7 +3,7 @@ import { LoginPage } from "../page-objects/LoginPage";
 import { UserDropDownMenu } from "../page-objects/components/UserDropdownMenu";
 import { RP_USERNAME, RP_PASSWORD } from '../support/envParameters';
 
-describe('template spec', () => {
+describe('Login tests', () => {
   let basePage: BasePage;
   let loginPage: LoginPage;
   let userDropDownMenu: UserDropDownMenu;
@@ -27,7 +27,7 @@ describe('template spec', () => {
     userDropDownMenu.userNameInput.should('have.text', RP_USERNAME);
   });
 
-  it('Logout', async () => {
+  it('Logout', () => {
     basePage.getUserAvatar.click({force:true});
     userDropDownMenu.logoutOption.click();
 
