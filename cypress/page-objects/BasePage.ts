@@ -1,17 +1,15 @@
-  import { PopupMessage } from '../../src/business/enums/PopupMessage';
-  import { AbstractPage } from './AbstractPage';
+import { WebElement } from '../../src/core/frameworks/webElementInterface';
+import { AbstractPage } from './AbstractPage';
 
-  export class BasePage {
+export class BasePage extends AbstractPage {
+  readonly getUserAvatar: WebElement;
+  readonly getSuccessfulLoginMessage: WebElement;
+  readonly getSuccessfulLogoutMessage: WebElement;
 
-    get getUserAvatar() {
-      return cy.xpath("(//*[@alt='avatar'])[1]");
-    }
-
-    get getSuccessfulLoginMessage() {
-      return cy.xpath(`//*[contains(text(),'${PopupMessage.SIGNED_IN_SUCCESSFULLY}')]`);
-    }
-
-    get getSuccessfulLogoutMessage() {
-      return cy.xpath(`//*[contains(text(),'${PopupMessage.YOU_HAVE_BEEN_LOGGED_OUT}')]`);
-    }
+  constructor() {
+    super();
+    this.getUserAvatar = super.createElement('input[placeholder="Login"]');
+    this.getSuccessfulLoginMessage = super.createElement('input[placeholder="Password"]');
+    this.getSuccessfulLogoutMessage = super.createElement('button[type="submit"]');
   }
+}

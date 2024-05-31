@@ -1,4 +1,6 @@
-export class DashboardItemPage {
+import { BasePage } from "./BasePage";
+
+export class DashboardItemPage extends BasePage {
 
     get dashboardName() {
         return cy.xpath("//a[text()='All Dashboards']/parent::*/following-sibling::*/span");

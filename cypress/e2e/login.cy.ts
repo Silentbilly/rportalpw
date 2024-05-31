@@ -19,18 +19,18 @@ describe('Login tests', () => {
   });
 
   it('Login - positive scenario', () => {
-    basePage.getUserAvatar.should('be.visible').and('exist');
+    basePage.getUserAvatar.element.should('be.visible').and('exist');
   });
   it('Login - user is logged in', () => {
-    basePage.getUserAvatar.click({force:true});
+    basePage.getUserAvatar.click();
 
     userDropDownMenu.userNameInput.should('have.text', RP_USERNAME);
   });
 
   it('Logout', () => {
-    basePage.getUserAvatar.click({force:true});
+    basePage.getUserAvatar.click();
     userDropDownMenu.logoutOption.click();
 
-    basePage.getSuccessfulLogoutMessage.should('be.visible');
+    basePage.getSuccessfulLogoutMessage.element.should('be.visible');
   });
 });
