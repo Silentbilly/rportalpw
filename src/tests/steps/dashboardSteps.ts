@@ -30,7 +30,7 @@ Given("User clicks on 'Add New Dashboard' button", async () => {
     await dashboardsPage.clickOn(dashboardsPage.addNewDashboardButton);
 });
 
-Given("In popup user enters dashboard's name and description and clicks 'Add' button", async () => {
+Given("In popup user enters dashboard's name and description and clicks 'Add' button", async function() {
     logger.info('Adding new dashboard');
     await addNewDashboardPopup.addNewDashboard(dashboardName, dashboardDescription);
 });
@@ -44,11 +44,11 @@ When('User clicks on Delete button', async () => {
     await dashboardItemPage.clickOn(dashboardItemPage.deleteButton);
 });
 
-When('User clicks on Delete button in popup', async () => {
+When('User clicks on Delete button in popup', async function() {
     await deleteDashboardPopup.clickOn(deleteDashboardPopup.deleteButton);
 });
 
-Then('Dashboard deleted message is appeared', async () => {
+Then('Dashboard deleted message is appeared', async function() {
     logger.info('Dashboard deleted message is appeared');
     await expect(dashboardsPage.dashboardDeletedMessage, 'Dashboard deleted message is appeared').toBeVisible();
 });

@@ -2,7 +2,7 @@
 
 export class StringUtils {
 
-    static async getRandomString(length: number) : Promise<string> {
+    static getRandomString(length: number) : string {
         const characters ='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
         let result = ' ';
         const charactersLength = characters.length;
@@ -12,7 +12,7 @@ export class StringUtils {
         return result;
     }
 
-    static async getRandomName(lettersNumber: number) : Promise<string> {
-        return '[AQA] ' + await StringUtils.getRandomString(lettersNumber);
+    static getRandomName(lettersNumber: number) : string {
+        return '[AQA] ' + StringUtils.getRandomString(lettersNumber);
     }
 }

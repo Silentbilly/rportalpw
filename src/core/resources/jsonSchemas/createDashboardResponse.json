@@ -1,0 +1,23 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "schema1",
+    "type": "object",
+    "default": {},
+    "title": "Root Schema",
+    "required": [
+        "id"
+    ],
+    "properties": {
+        "id": {
+            "type": "integer",
+            "default": 0,
+            "title": "The id Schema",
+            "examples": [
+                471
+            ]
+        }
+    },
+    "examples": [{
+        "id": 471
+    }]
+}

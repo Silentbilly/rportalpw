@@ -14,49 +14,49 @@ let loginPage: LoginPage;
 let basePage: BasePage;
 let userDropDownMenu: UserDropDownMenu;
 
-Given('User navigates to the application', async () => {
+Given('User navigates to the application', async function() {
     loginPage = new LoginPage(fixture.page);
     basePage = new BasePage(fixture.page);
     userDropDownMenu = new UserDropDownMenu(fixture.page);
     await fixture.page.goto(config.baseUrl);
 });
 
-When('User enters valid username and password and clicks submit button', async () => {
+When('User enters valid username and password and clicks submit button', async function() {
     logger.info('User enters valid username and password and clicks submit button');
     await loginPage.login(RP_USERNAME, RP_PASSWORD);
 });
 
-Then('The successfull login message should appear', async () => {
+Then('The successfull login message should appear', async function() {
     logger.info('Getting successfull login message');
     await expect(basePage.successfullLoginMessage, 'The successfull login message should be appeared').toBeVisible();
 });
 
-When('Clicks on user dropdown menu', async () => {
+When('Clicks on user dropdown menu', async function() {
     await basePage.clickOn(basePage.userAvatar);
     const actualUserName = await userDropDownMenu.getUserName();
     logger.info(`The user name in dropdown user menu - '${actualUserName}'`);
 });
 
-Then('User name should be in user dropdown menu', async () => {
+Then('User name should be in user dropdown menu', async function() {
     const actualUserName = await userDropDownMenu.getUserName();
     await expect(actualUserName, `User should be loooged in as '${RP_USERNAME}'`).toEqual(RP_USERNAME);
 });
 
-When('Clicks on logout option', async () => {
+When('Clicks on logout option', async function() {
     userDropDownMenu = new UserDropDownMenu(fixture.page);
     await userDropDownMenu.clickOn(userDropDownMenu.logoutOption);
 });
 
-Then('The successfull logout message should appear', async () => {
+Then('The successfull logout message should appear', async function() {
     logger.info('Getting successfull logout message');
     await expect(basePage.successfullLogoutMessage, 'The successfull logout message should be appeared').toBeVisible();
 });
 
-When('User enters invalid username {string} and password {string} and clicks submit button', async (userName, password) => {
+When('User enters invalid username {string} and password {string} and clicks submit button', async function(userName, password) {
     await loginPage.login(userName, password);
 });
 
-Then(/^The bad credentials login message should (not )?appear for "([^"]*)" and "([^"]*)"$/, async (notArg, userName: string, password: string) => {
+Then(/^The bad credentials login message should (not )?appear for "([^"]*)" and "([^"]*)"$/, async function(notArg, userName: string, password: string) {
     logger.info('Getting bad credentials message');
     if (notArg) {
         await expect(loginPage.badCredentialsLoginMessage, 'The bad credentials message should not appeare').not.toBeVisible();
