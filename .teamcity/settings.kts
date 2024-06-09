@@ -37,15 +37,15 @@ object Build : BuildType({
     name = "Build"
 
     params {
-        param("env.RP_API_KEY", "key_-JyhMtNeT9mpQlDZDUVP0AhmVgfaXsrGTvil_Vq4k_xL2nMgUDnYRVt8shhsQyDN")
         param("DOCKER_HUB_USERNAME", "silentbilly")
+        param("env.RP_API_KEY", "key_-JyhMtNeT9mpQlDZDUVP0AhmVgfaXsrGTvil_Vq4k_xL2nMgUDnYRVt8shhsQyDN")
         param("env.RP_USERNAME", "default")
         param("BASIC_AUTH_TOKEN", "Basic dWk6dWltYW4=")
         param("RP_PASSWORD", "1q2w3e")
         param("env.PROJECT_NAME", "rp_dashboards")
         param("system.DOCKER_HUB_USERNAME", "Silentbilly")
-        param("RP_API_KEY", "key_-JyhMtNeT9mpQlDZDUVP0AhmVgfaXsrGTvil_Vq4k_xL2nMgUDnYRVt8shhsQyDN")
         password("DOCKER_HUB_PASSWORD", "credentialsJSON:0891a8a6-acc9-4b7a-9591-9cbb1b7a77ee")
+        param("RP_API_KEY", "key_-JyhMtNeT9mpQlDZDUVP0AhmVgfaXsrGTvil_Vq4k_xL2nMgUDnYRVt8shhsQyDN")
         password("env.RP_PASSWORD", "credentialsJSON:5b608189-ea58-44f5-a56b-ecf392e20dd7")
         param("env.BASIC_AUTH_TOKEN", "Basic dWk6dWltYW4=")
         password("system.DOCKER_HUB_PASSWORD", "credentialsJSON:0891a8a6-acc9-4b7a-9591-9cbb1b7a77ee")
