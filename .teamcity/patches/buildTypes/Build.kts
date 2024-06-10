@@ -1,6 +1,8 @@
 package patches.buildTypes
 
 import jetbrains.buildServer.configs.kotlin.*
+import jetbrains.buildServer.configs.kotlin.buildFeatures.XmlReport
+import jetbrains.buildServer.configs.kotlin.buildFeatures.xmlReport
 import jetbrains.buildServer.configs.kotlin.ui.*
 
 /*
@@ -9,6 +11,18 @@ To apply the patch, change the buildType with id = 'Build'
 accordingly, and delete the patch script.
 */
 changeBuildType(RelativeId("Build")) {
+    features {
+        val feature1 = find<XmlReport> {
+            xmlReport {
+                reportType = XmlReport.XmlReportType.JUNIT
+                rules = "test-results/results.xml"
+            }
+        }
+        feature1.apply {
+            verbose = true
+        }
+    }
+
     requirements {
         add {
             matches("teamcity.agent.jvm.os.family", "Linux")
