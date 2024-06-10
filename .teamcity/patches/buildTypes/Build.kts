@@ -3,6 +3,9 @@ package patches.buildTypes
 import jetbrains.buildServer.configs.kotlin.*
 import jetbrains.buildServer.configs.kotlin.buildFeatures.XmlReport
 import jetbrains.buildServer.configs.kotlin.buildFeatures.xmlReport
+import jetbrains.buildServer.configs.kotlin.buildSteps.ScriptBuildStep
+import jetbrains.buildServer.configs.kotlin.buildSteps.nodeJS
+import jetbrains.buildServer.configs.kotlin.buildSteps.script
 import jetbrains.buildServer.configs.kotlin.ui.*
 
 /*
@@ -11,6 +14,62 @@ To apply the patch, change the buildType with id = 'Build'
 accordingly, and delete the patch script.
 */
 changeBuildType(RelativeId("Build")) {
+    expectSteps {
+        script {
+            name = "Set up environment variables"
+            id = "Set_up_environment_variables"
+            scriptContent = """
+                export RP_PASSWORD=%RP_PASSWORD%
+                export BASIC_AUTH_TOKEN=%BASIC_AUTH_TOKEN%
+                export RP_API_KEY=%RP_API_KEY%
+            """.trimIndent()
+        }
+        script {
+            name = "Docker Login"
+            id = "Docker_Login"
+            scriptContent = "echo %DOCKER_HUB_PASSWORD% | docker login -u %DOCKER_HUB_USERNAME% --password-stdin"
+        }
+        script {
+            name = "Start services"
+            id = "Start_services"
+            scriptContent = "docker-compose -f ./docker-compose.yml up -d"
+        }
+        nodeJS {
+            name = "Install Node.js and npm dependencies"
+            id = "Install_Node_js_and_npm_dependencies"
+            executionMode = BuildStep.ExecutionMode.RUN_ON_FAILURE
+            shellScript = """
+                # Install npm dependencies
+                npm ci
+                
+                npx --version
+            """.trimIndent()
+            dockerImage = "node:18"
+        }
+        nodeJS {
+            name = "Tests"
+            id = "Tests"
+            shellScript = """
+                # Run Playwright commands
+                npx playwright install --with-deps
+                npx playwright test
+            """.trimIndent()
+            dockerImage = "node:18"
+        }
+        script {
+            name = "Stop services"
+            id = "Stop_services"
+            executionMode = BuildStep.ExecutionMode.RUN_ON_FAILURE
+            scriptContent = "docker-compose -f ./docker-compose.yml down"
+        }
+    }
+    steps {
+        update<ScriptBuildStep>(0) {
+            enabled = false
+            clearConditions()
+        }
+    }
+
     features {
         val feature1 = find<XmlReport> {
             xmlReport {
