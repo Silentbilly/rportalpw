@@ -72,6 +72,10 @@ changeBuildType(RelativeId("Build")) {
             enabled = false
             clearConditions()
         }
+        update<ScriptBuildStep>(2) {
+            enabled = false
+            clearConditions()
+        }
     }
 
     features {
